@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>writr</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <br>
+    <div id="textbox">
+        <textarea id="texty" placeholder="Start typing"></textarea>
+        <div id="options">
+            <button onclick=clearText()>clear <i class="fa fa-eraser" aria-hidden="true"></i></button>
+            <button onclick="toggleCalculator()">Open Calculator <i class="fa fa-calculator" aria-hidden="true"></i></button>
+            <div id="calculatorContainer" style="display: none;">
+                <iframe src="calculator.html" width="400" height="600" frameborder="0"></iframe>
+                <button onclick="closeCalculator()">close Calculator</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

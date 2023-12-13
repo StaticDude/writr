@@ -1,0 +1,25 @@
+body {
+    background-color: rgb(0, 0, 15);
+    color: white;
+    font-family: monospace;
+}
+
+#textbox {
+    display: flex;
+    flex-direction: column;
+}
+
+#texty {
+    resize: none;
+    width: 99%;
+    height: 550px;
+    border: 1px solid black; /* Corrected the border property */
+    background-color: rgb(0, 0, 15);
+    color: white;
+    font-size: 20px;
+    user-select: none;
+}
+
+.button{
+    size: 15px;
+}
