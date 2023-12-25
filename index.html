@@ -7,21 +7,48 @@
     <script src="script.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+    <button onclick="saveText()">
+        Save <i class="fas fa-save" aria-hidden="true"></i>
+    </button>
+
+    </details>
+    <br>
     <br>
     <div id="textbox">
         <textarea id="texty" placeholder="Start typing"></textarea>
-        <details> <summary>Options <i class="fa fa-cog" aria-hidden="true"></i></summary>
-        <div id="options">
-            <button onclick=clearText()>clear <i class="fa fa-eraser" aria-hidden="true"></i></button>
+
+    <div id="options">
+        <details>
+            <summary>Options <i class="fa fa-cog" aria-hidden="true"></i></summary>
+            <button onclick="clearText()">Clear <i class="fa fa-eraser" aria-hidden="true"></i></button>
             <button onclick="toggleCalculator()">Open Calculator <i class="fa fa-calculator" aria-hidden="true"></i></button>
             <div id="calculatorContainer" style="display: none;">
                 <iframe src="calculator.html" width="400" height="600" frameborder="0"></iframe>
-                <button onclick="closeCalculator()">close Calculator</button>
+                <button onclick="closeCalculator()">Close Calculator</button>
             </div>
-        </div>
-    </details>
+            <button onclick="toggleWhiteBoard()">Open Whiteboard <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+            <div id="WhiteboardContainer" style="display: none;">
+                <iframe src="whiteboard.html" width="400" height="400" frameborder="0"></iframe>
+                <button onclick="closeWhiteBoard()">Close Whiteboard</button>
+            </div>
+        </details>
+    </div>
+
+
+    <div id="motivationalQuoteS">
+        <details> <summary>Motivation</summary>
+        <span id="quote1"><p>loading</p></span>
+        <span id="quote2"><p>loading</p></span>
+        <span id="quote3"><p>loading</p></span>
+        <span id="quote4"><p>loading</p></span>
+        <span id="quote5"><p>loading</p></span>
+        <span id="quote6"><p>loading</p></span>
+        <span id="quote7"><p>loading</p></span>
+        <span id="quote8"><p>loading</p></span>
+        </details>
     </div>
 </body>
 </html>

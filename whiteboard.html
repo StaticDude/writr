@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whiteboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            background-color: #fff;
+            cursor: crosshair;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="whiteboard"></canvas>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const canvas = document.getElementById("whiteboard");
+            const context = canvas.getContext("2d");
+
+            // Set initial canvas size
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let drawing = false;
+            let erasing = false;
+            let paths = [];
+            let currentPath = [];
+
+            function startPosition(e) {
+                if (e.button === 2) {
+                    erasing = true;
+                    context.globalCompositeOperation = "destination-out";
+                    context.lineWidth = 20; // Adjust the width for the eraser
+                } else {
+                    drawing = true;
+                    draw(e);
+                }
+            }
+
+            function endPosition() {
+                if (erasing) {
+                    erasing = false;
+                    context.globalCompositeOperation = "source-over";
+                } else {
+                    drawing = false;
+                    paths.push(currentPath.slice()); // Save the current path
+                    currentPath = []; // Reset the current path
+                    context.beginPath();
+                }
+            }
+
+            function draw(e) {
+                if (!(drawing || erasing)) return;
+
+                context.lineCap = "round";
+
+                if (erasing) {
+                    context.lineTo(e.clientX, e.clientY);
+                    context.stroke();
+                    context.clearRect(e.clientX - 10, e.clientY - 10, 20, 20);
+                } else {
+                    context.lineWidth = 5;
+                    context.strokeStyle = "#000";
+                    context.lineTo(e.clientX, e.clientY);
+                    context.stroke();
+                    currentPath.push({ x: e.clientX, y: e.clientY });
+                }
+
+                context.beginPath();
+                context.moveTo(e.clientX, e.clientY);
+            }
+
+            function undo() {
+                if (paths.length > 0) {
+                    paths.pop(); // Remove the last path
+                    redraw();
+                }
+            }
+
+            function redraw() {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+
+                paths.forEach(path => {
+                    context.beginPath();
+                    context.moveTo(path[0].x, path[0].y);
+
+                    path.forEach(point => {
+                        context.lineTo(point.x, point.y);
+                        context.stroke();
+                    });
+                });
+            }
+
+            // Event listeners
+            canvas.addEventListener("mousedown", startPosition);
+            canvas.addEventListener("mouseup", endPosition);
+            canvas.addEventListener("mousemove", draw);
+
+            // Undo functionality
+            window.addEventListener("keydown", function (e) {
+                if (e.ctrlKey && e.key === "z") {
+                    undo();
+                }
+            });
+
+            // Resize canvas when the window is resized
+            window.addEventListener("resize", function () {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                redraw();
+            });
+
+            // Disable right-click context menu
+            canvas.addEventListener("contextmenu", function (e) {
+                e.preventDefault();
+            });
+        });
+    </script>
+</body>
+</html>
